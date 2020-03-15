@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Omregning fra 2- talssystemet til 10- talssystemet</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script>
+  $(function() {
+    $( "#bin" ).focus();
+
+    $( "#bin" ).keyup(function() 
+    {
+     var i;
+     var result=0;
+     var num=$("#bin").val();
+
+     var splitNumber = num.split("");
+     var reversedNumber = splitNumber.reverse();
+     num = reversedNumber.join("");
+
+     for (i = 0; i < num.length; ++i) 
+     {
+      // omregn fra bin til dec
+      result = result + Math.pow(2, i) * num[i];
+     }
+
+    $("#Resultat").html(result);
+    });
+
+        $("#bin").keydown(function (e) 
+        {
+         // Tillad: backspace, delete, tab, escape, enter
+         if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110]) !== -1 ||
+             // Tillad: Ctrl+A, Command+A
+            (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) ||
+             // Tillad: home, end, left, right, down, up
+            (e.keyCode >= 35 && e.keyCode <= 40)) {
+                 // Lad det ske, og lad være med at gøre noget
+                 return;
+        }
+
+        // Sørg for det er et tal og stop tastetrykket default handling
+        if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 49)) && (e.keyCode < 96 || e.keyCode > 105)) 
+        {
+            e.preventDefault();
+        }
+    });
+  });
+    </script>
+
+</head>
+<body>
+    <h1>Dette program kan omregne fra det binære tal-system til 10-talssystemet</h1><br />
+    <div class="row">
+        <div class="col-md-4">Binær tal 1 eller 0</div>
+        <div class="col-md-4">10- talssystem</div>
+    </div>
+    <div class="row">
+        <div class="col-md-4"><input type="text" id="bin" title="Indtast 0 eller 1 her" /></div>
+        <div class="col-md-4" id="Resultat">Ukendt tal</div>
+    </div>
+</body>
+</html>
